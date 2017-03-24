@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	id="WebApp_ID" version="3.1">
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring-servlet.xml</param-value>
+	</context-param>
+
+
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<display-name>Spring3MVC</display-name>
+
+
+	<servlet>
+		<servlet-name>spring</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- load-on-startup：表示启动容器时初始化该Servlet； -->
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>spring</servlet-name>
+		<!-- url-pattern：表示哪些请求交给Spring Web MVC处理， “/” 是用来定义默认servlet映射的。 -->
+		<!-- 也可以如“*.html”表示拦截所有以html为扩展名的请求。 -->
+		<url-pattern>/do*</url-pattern>
+	</servlet-mapping>
+
+	<!-- 默认首页定义 -->
+	<welcome-file-list>
+		<welcome-file>/index.html</welcome-file>
+	</welcome-file-list>
+	<servlet>
+		<servlet-name>InitPage</servlet-name>
+		<jsp-file>/index.html</jsp-file>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>InitPage</servlet-name>
+		<url-pattern>/index</url-pattern>
+	</servlet-mapping>
+
+
+
+
+
+
+	<!-- 自此请求已交给Spring Web MVC框架处理，因此我们需要配置Spring的配置文件， -->
+	<!-- 默认DispatcherServlet会加载WEB-INF/[DispatcherServlet的Servlet名字,也就是上面的spring]-servlet.xml配置文件。 -->
+	<!-- 即spring-servlet.xml -->
+
+</web-app>  
